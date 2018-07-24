@@ -1,4 +1,4 @@
-![PROJECT_PHOTO](https://github.com/AlexGyver/POV_display/blob/master/proj_img.jpg)
+![PROJECT_PHOTO](https://github.com/AlexGyver/ServoClock/blob/master/proj_img.jpg)
 # Сервоприводные часы на Arduino
 * [Описание проекта](#chapter-0)
 * [Папки проекта](#chapter-1)
