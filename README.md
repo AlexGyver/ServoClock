@@ -1,5 +1,5 @@
 ![PROJECT_PHOTO](https://github.com/AlexGyver/POV_display/blob/master/proj_img.jpg)
-# POV вращающийся дисплей своими руками
+# Сервоприводные часы на Arduino
 * [Описание проекта](#chapter-0)
 * [Папки проекта](#chapter-1)
 * [Схемы подключения](#chapter-2)
@@ -11,49 +11,38 @@
 
 <a id="chapter-0"></a>
 ## Описание проекта
-Вращающийся дисплей
+Сервоприводные 7-сегментные часы на Arduino
 Особенности:
-- Собран из доступных компонентов, на адресной ленте WS2812
-- Разрешение 10 градусов
-- Плавный разгон и торможение (уменьшение нагрузки на редуктор и муфту)
-- Воспроизведение 9-кадровой анимации (Arduino NANO/UNO/MINI)
-- На Arduino MEGA влезет около 80 кадров анимации
+- Хардкорный проект, состоящий из 28 сервоприводов и напечатанных на 3D принтере элементов
+- Оборудованы датчиком движения, который позволяет не переключать время, пока людей рядом с часами нет, или они не шевелятся =)
+- Проект использует RTC DS3231
 - Подробности в видео: https://youtu.be/RL3j-3fyWM8
 <a id="chapter-1"></a>
 ## Папки
 **ВНИМАНИЕ! Если это твой первый опыт работы с Arduino, читай [инструкцию](#chapter-4)**
 - **libraries** - библиотеки проекта. Заменить имеющиеся версии
-- **POV_display** - прошивка
+- **servo-clock** - прошивка
 - **images** - исходники картинок
 - **schemes** - схемы подключения
 
 <a id="chapter-2"></a>
 ## Схемы
-![SCHEME](https://github.com/AlexGyver/POV_display/blob/master/schemes/scheme1.jpg)
-![SCHEME](https://github.com/AlexGyver/POV_display/blob/master/schemes/scheme2.jpg)
+![SCHEME](https://github.com/AlexGyver/ServoClock/blob/master/schemes/scheme1.jpg)
+![SCHEME](https://github.com/AlexGyver/ServoClock/blob/master/schemes/scheme2.jpg)
+![SCHEME](https://github.com/AlexGyver/ServoClock/blob/master/schemes/scheme3.jpg)
 
 <a id="chapter-3"></a>
 ## Материалы и компоненты
 ### Ссылки оставлены на магазины, с которых я закупаюсь уже не один год
 ### Почти все компоненты можно взять в магазине WAVGAT по первым ссылкам
-* Arduino NANO с ногами http://ali.pub/2kendk http://ali.pub/2kenec
-* Arduino NANO без ног http://ali.pub/2kenfp http://ali.pub/2kenif
-* Адресная лента http://ali.ski/CjdQCL
-	- Black PCB / White PCB - цвет подложки ленты, чёрная / белая. В видео была чёрная
-	- 1m/5m - длина ленты в метрах (чтобы заказать 2 метра, берите два заказа 1m, очевидно)
-	- 30/60/74/96/100/144 - количество светодиодов на 1 метр ленты. В видео использовалась лента 60 диодов на метр
-	- IP30 лента без влагозащиты
-	- IP65 лента покрыта силиконом
-	- IP67 лента полностью в силиконовом коробе
-	- **Лента как на видео: White PCB 144. Берите IP30**
-* Датчик Холла http://ali.pub/2keo7w или такой http://ali.pub/2keo8v
-* Мотор http://ali.pub/2kenw8
-* Повышайка http://ali.pub/2kenyd
-* Мосфет модуль (вместо голого фета) http://ali.pub/2keoa8
-* Штекер https://www.chipdip.ru/product/sp20-6.35s-n
-* Гнездо https://www.chipdip.ru/product/st-008s-04
-* Блок питания 5V - любой зарядник для смартфона
-* Транзисторы, конденсаторы, кнопки и резисторы - в ЛЮБОМ магазине радиодеталей
+* Arduino NANO с ногами http://ali.pub/2ntxqs  http://ali.pub/2ntxrr
+* RTC DS3231 http://ali.pub/2ntyd5  http://ali.pub/2ntydx
+* Датчик движения http://ali.pub/2ntz6p
+* Серво драйвер х16 http://ali.pub/2ntygn  http://ali.pub/2ntyi7
+* Сервы (берите 30шт) 10 синие http://ali.pub/2ntyk5
+* БП 5V (берите 3А) http://ali.pub/2ntyws  http://ali.pub/2ntyzw
+* 3D печать на заказ от подписчиков канала https://alexgyver.ru/3d-print/
+* Подборка недорогих 3D принтеров с обзорами https://alexgyver.ru/3d-printers/
 
 ## Вам скорее всего пригодится
 * [Всё для пайки (паяльники и примочки)](http://alexgyver.ru/all-for-soldering/)
@@ -70,6 +59,7 @@
 * Установить библиотеки в  
 `C:\Program Files (x86)\Arduino\libraries\` (Windows x64)  
 `C:\Program Files\Arduino\libraries\` (Windows x86)
+* **Подключить внешнее питание 5 Вольт**
 * Подключить Ардуино к компьютеру
 * Запустить файл прошивки (который имеет расширение .ino)
 * Настроить IDE (COM порт, модель Arduino, как в статье выше)
@@ -78,22 +68,14 @@
 * Пользоваться  
 
 ## Настройки в коде
-    #define NUM_LEDS 72     // количество светодиодов
-    #define BRIGHTNESS 200  // яркость
-    #define MOTOR_MAX 160   // скорость мотора (0-255)
-    #define RES 10          // разрешение (каждые n градусов)
-    #define COEF 0.3        // коэф. сглаживания частоты оборотов
-    #define PODGON 1.3      // коэф. подгона (у, блет)
-    #define OFFSET 240      // сдвиг по углу (0-360)
-    #define NUM_FRAMES 8    // количество фреймов анимации
-    #define FRAME_RATE 30   // количество перерисовок между сменой кадра
-    
-    #define PIN 4           // пин ленты
-    #define MOS 3           // пин мосфета (мотора)
-    #define BTN1 8          // пин кнопки 1
-    #define BTN1_G 6        // земля кнопки 1
-    #define BTN2 11         // пин кнопки 2      
-    #define BTN2_G 9        // земля кнопки 2 
+    #define SERVOMIN  150     // минимальный сигнал серво
+    #define SERVOMAX  550     // максимальный сигнал серво
+    #define IR_PIN 2          // пин ИК датчика
+    #define IR_SENSOR 1       // использовать ИК датчик движения
+    #define IR_TIMEOUT 300000 // таймаут датчика движения (умолч. 300000мс это 5 мин)
+    #define STOCK_UP 270      // значение максимального угла (сегмент поднят) по умолчанию
+    #define STRING_SPEED 500  // скорость бегущей строки
+    // текст бегущей строки настраивается примерно в строке №100
 	
 <a id="chapter-5"></a>
 ## FAQ
@@ -114,8 +96,6 @@
 О: Ничего не продаю.
 
 ### Вопросы по этому проекту
-В: Подойдёт ли обычная RGB лента?  
-О: Нет.
 
 <a id="chapter-6"></a>
 ## Полезная информация

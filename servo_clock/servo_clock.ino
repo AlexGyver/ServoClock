@@ -9,7 +9,7 @@
 // ********* НАСТРОЙКИ *********
 #define SERVOMIN  150     // минимальный сигнал серво
 #define SERVOMAX  550     // максимальный сигнал серво
-#define IR_PIN 3          // пин ИК датчика
+#define IR_PIN 2          // пин ИК датчика
 #define IR_SENSOR 1       // использовать ИК датчик движения
 #define IR_TIMEOUT 300000 // таймаут датчика движения (умолч. 300000мс это 5 мин)
 #define STOCK_UP 270      // значение максимального угла (сегмент поднят) по умолчанию
@@ -201,7 +201,7 @@ void loop() {
 }
 void IRTick() {
   if (IR_SENSOR) {
-    if (digitalWrite(IR_PIN)) {                       // если сработал датчик движения
+    if (digitalRead(IR_PIN)) {                       // если сработал датчик движения
       IRTimer = millis();                             // сбросить таймер
       if (!IRFlag) IRFlag = true;                     // включить часы
     } else {                                          // если датчик показывает 0
