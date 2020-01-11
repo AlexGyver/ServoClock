@@ -36,12 +36,26 @@
 ## Материалы и компоненты
 ### Ссылки оставлены на магазины, с которых я закупаюсь уже не один год
 ### Почти все компоненты можно взять в магазине WAVGAT по первым ссылкам
-* Arduino NANO с ногами http://ali.pub/2ntxqs  http://ali.pub/2ntxrr
-* RTC DS3231 http://ali.pub/2ntyd5  http://ali.pub/2ntydx
-* Датчик движения http://ali.pub/2ntz6p
-* Серво драйвер х16 http://ali.pub/2ntygn  http://ali.pub/2ntyi7
-* Сервы (берите 30шт) 10 синие http://ali.pub/2ntyk5
-* БП 5V (берите 3А) http://ali.pub/2ntyws  http://ali.pub/2ntyzw
+* Arduino NANO 328p – искать
+* https://ali.ski/tI7blh
+* https://ali.ski/O4yTxb
+* https://ali.ski/6_rFIS
+* https://ali.ski/gb92E-
+* RTC DS3231
+* https://ali.ski/lqQM2d
+* https://ali.ski/u6mZas
+* Датчик движения искать
+* https://ali.ski/XjNWx
+* Серво драйвер х16
+* https://ali.ski/Mwi2ap
+* https://ali.ski/T26inS
+* Сервы (берите 30шт)
+* https://ali.ski/LrykyU
+* https://ali.ski/3wzSB
+* https://ali.ski/b3pJ0
+* БП 5V Али искать
+* https://ali.ski/DItEG
+* https://ali.ski/t3YFfU
 * 3D печать на заказ от подписчиков канала https://alexgyver.ru/3d-print/
 * Подборка недорогих 3D принтеров с обзорами https://alexgyver.ru/3d-printers/
 
