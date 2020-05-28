@@ -1,3 +1,5 @@
+// I guess everything is intuitively understandable, and you can change it if you wish
+
 #define INTERVAL 1000 // Delay before showing next symbol
 
 #define SERVO_DOWN 0
@@ -24,6 +26,7 @@ void setup()
 	{
 		motors[i].attach(servo_pins[i]);
 	}
+	
 	text.trim();
 	text.toLowerCase();
 	update('0');
